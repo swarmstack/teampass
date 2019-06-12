@@ -1,10 +1,10 @@
 # swarmstack/teampass
 
-Docker compose file for TeamPass. Requires Docker swarm.
+Docker compose file for [TeamPass](https://teampass.net). Requires Docker swarm.
 
 ## USAGE
 
-Edit the docker-compose.yml and replace fqdn.example.com with your swarm http address. TeamPass database credentials for later configuration are also found within this same file.
+Edit docker-compose.yaml and replace fqdn.example.com with your swarm http address. TeamPass database credentials for later configuration are also found within this same file.
 
 ```
 docker stack deploy -c docker-compose.yml teampass
