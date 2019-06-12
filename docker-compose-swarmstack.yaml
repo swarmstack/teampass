@@ -1,0 +1,63 @@
+version: "3.4"
+
+networks:
+  default:
+    external:
+      name: swarmstack_net
+
+configs:
+  teampass_docker_start:
+    file: ./teampass-docker-start.sh
+
+volumes:
+    teampass-data:
+      driver: pxd
+      driver_opts:
+        repl: 2
+        size: 2
+    teampass-php:
+      driver: pxd
+      driver_opts:
+        repl: 2
+        size: 1 
+    teampass-mysql:
+      driver: pxd
+      driver_opts:
+        repl: 2
+        size: 4 
+
+services:
+  teampass:
+    image: teampass/teampass
+    configs:
+      - source: teampass_docker_start
+        target: /teampass-docker-start.sh
+    deploy:
+      mode: replicated
+      placement:
+        constraints:
+          - node.Labels.storagegroup==RED
+      replicas: 1
+    environment:
+      VIRTUAL_HOST: fqdn.example.com
+    ports:
+      - "6443:80"
+    volumes:
+      - teampass-data:/var/www/html
+      - teampass-php:/var/php/session
+
+  db:
+    image: mysql/mysql-server:5.7
+    deploy:
+      mode: replicated
+      placement:
+        constraints:
+          - node.Labels.storagegroup==RED
+      replicas: 1
+    environment:
+      MYSQL_ROOT_PASSWORD: mypass
+      MYSQL_DATABASE: teampass
+      MYSQL_PASSWORD: teampass
+      MYSQL_USER: teampass
+    volumes:
+      - teampass-mysql:/var/lib/mysql

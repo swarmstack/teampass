@@ -1,0 +1,35 @@
+version: "3.4"
+
+configs:
+  teampass_docker_start:
+    file: ./teampass-docker-start.sh
+
+services:
+  teampass:
+    image: teampass/teampass
+    configs:
+      - source: teampass_docker_start
+        target: /teampass-docker-start.sh
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      VIRTUAL_HOST: fqdn.example.com
+    ports:
+      - "6443:80"
+    volumes:
+      - ./local_bind_volume_dir/var/www/html:/var/www/html
+      - ./local_bind_volume_dir/var/php/session:/var/php/session
+
+  db:
+    image: mysql/mysql-server:5.7
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      MYSQL_ROOT_PASSWORD: mypass
+      MYSQL_DATABASE: teampass
+      MYSQL_PASSWORD: teampass
+      MYSQL_USER: teampass
+    volumes:
+      - ./local_bind_volume_dir/var/lib/mysql:/var/lib/mysql
