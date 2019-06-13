@@ -16,6 +16,12 @@ docker stack deploy -c docker-compose.yml teampass
 
 You can then configure TeamPass at http://fqdn.example.com:6443/index.php
 
+For Teampass configuration, the database host is 'db', and database credentials are found within the Docker compose file.
+
+Per [https://github.com/nilsteampassnet/TeamPass](https://github.com/nilsteampassnet/TeamPass): Use /var/www/html/sk as your "Absolute path to saltkey" during installation.
+
+---
+
 It is HIGHLY recommended to remove the exposed "ports:" section within the compose file, and instead secure the traffic behind HTTPS/TLS via a proxy. swarmstack users can add the following stanza to their existing Caddy proxy configuration:
 
 ```
