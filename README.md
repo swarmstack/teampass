@@ -6,7 +6,7 @@ Docker compose file for [TeamPass](https://teampass.net). Requires Docker swarm.
 
 Edit docker-compose.yaml and replace fqdn.example.com with your swarm http address. TeamPass database credentials for later configuration are also found within this same file.
 
-MariaDB will initially deploy a container with --skip-networking enabled, which prevents TeamPass from connecting. You should bounce the stack after MariaDB first initializes before attempting to configure TeamPass. The script below will wait for the MariaDB container to come and then wait 2 minutes for it to initialize, but you can also just watch the container logs.
+MariaDB will initially deploy a container with --skip-networking enabled, which prevents TeamPass from connecting. You should bounce the stack after MariaDB first initializes before attempting to configure TeamPass. The script below will wait for the MariaDB container to come online and then wait 2 minutes for it to initialize, but you can also just watch the container logs.
 
 ```
 docker stack deploy -c docker-compose.yml teampass
