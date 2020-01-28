@@ -20,7 +20,7 @@ volumes:
       driver_opts:
         repl: 2
         size: 1 
-    teampass-mysql:
+    teampass-mariadb:
       driver: pxd
       driver_opts:
         repl: 2
@@ -47,7 +47,7 @@ services:
       - teampass-php:/var/php/session
 
   db:
-    image: mysql/mysql-server:5.7
+    image: mariadb:10
     deploy:
       mode: replicated
       placement:
@@ -60,4 +60,4 @@ services:
       MYSQL_PASSWORD: teampass
       MYSQL_USER: teampass
     volumes:
-      - teampass-mysql:/var/lib/mysql
+      - teampass-mariadb:/var/lib/mysql

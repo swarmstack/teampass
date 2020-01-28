@@ -22,7 +22,7 @@ services:
       - ./local_bind_volume_dir/var/php/session:/var/php/session
 
   db:
-    image: mysql/mysql-server:5.7
+    image: mariadb:10
     deploy:
       mode: replicated
       replicas: 1
@@ -32,4 +32,4 @@ services:
       MYSQL_PASSWORD: teampass
       MYSQL_USER: teampass
     volumes:
-      - ./local_bind_volume_dir/var/lib/mysql:/var/lib/mysql
+      - ./local_bind_volume_dir:/var/lib/mysql
