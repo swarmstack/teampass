@@ -27,7 +27,9 @@ Per [https://github.com/nilsteampassnet/TeamPass](https://github.com/nilsteampas
 
 ---
 
-It is HIGHLY recommended to remove the exposed "ports:" section within the compose file, and instead secure the traffic behind HTTPS/TLS via a proxy. swarmstack users can add the following stanza to their existing Caddy proxy configuration:
+It is HIGHLY recommended to remove the exposed "ports:" section within the compose file, and instead secure the traffic behind HTTPS/TLS via a proxy.
+
+swarmstack users can add the following stanza to their existing Caddy proxy configuration, and remove the "ports:" section from the compose file:
 
 ```
 {$CADDY_URL}:6443 {
